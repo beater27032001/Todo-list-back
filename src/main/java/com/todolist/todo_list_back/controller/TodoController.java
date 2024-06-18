@@ -40,6 +40,15 @@ public class TodoController {
         TodoReadDTO responseDTO = new TodoReadDTO(todo.getId(), todo.getText());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TodoReadDTO> updateTodo(@PathVariable Long id, @RequestBody TodoWriteDTO todoWriteDTO){
+        Todo todo = todoService.updateTodo(id, todoWriteDTO);
+        TodoReadDTO responseDTO = new TodoReadDTO(todo.getId(), todo.getText());
+        return ResponseEntity.ok(responseDTO);
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
         todoService.deleteTodo(id);
